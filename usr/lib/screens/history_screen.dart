@@ -57,7 +57,7 @@ class HistoryScreen extends StatelessWidget {
                     title: Text(item.prompt),
                     trailing: IconButton(
                       icon: const Icon(Icons.more_vert),
-                      onTap: () {
+                      onPressed: () {
                         // Show options like download, share, delete
                       },
                     ),
