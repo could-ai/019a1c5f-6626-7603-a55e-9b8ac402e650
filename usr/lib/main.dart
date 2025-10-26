@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:viora/screens/auth_screen.dart';
 import 'package:viora/screens/main_layout.dart';
+import 'package:viora/screens/splash_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // IMPORTANT: Replace with your own Supabase URL and Anon Key
+  // You can get these from your Supabase project settings
+  await Supabase.initialize(
+    url: 'YOUR_SUPABASE_URL',
+    anonKey: 'YOUR_SUPABASE_ANON_KEY',
+  );
   runApp(const VioraApp());
 }
+
+final supabase = Supabase.instance.client;
 
 class VioraApp extends StatelessWidget {
   const VioraApp({super.key});
@@ -30,7 +43,12 @@ class VioraApp extends StatelessWidget {
           unselectedItemColor: Colors.grey,
         ),
       ),
-      home: const MainLayout(),
+      initialRoute: '/',
+      routes: <String, WidgetBuilder>{
+        '/': (_) => const SplashScreen(),
+        '/login': (_) => const AuthScreen(),
+        '/main': (_) => const MainLayout(),
+      },
     );
   }
 }
